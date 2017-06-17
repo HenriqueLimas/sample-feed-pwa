@@ -7,6 +7,8 @@ const Header = (ctx) => `
   <meta name="viewport" content="width=device-width,minimum-scale=1.0">
 
   <title>${ctx.title}</title>
+
+  <link rel="stylesheet" href="static/styles/app-shell.css">
 </head>
 
 <body>
