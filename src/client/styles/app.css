@@ -1,7 +1,25 @@
+:root {
+  --primary-font-color: #424242;
+}
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  color: red;
+  font-family: Georgia,Cambria,"Times New Roman", Times, serif;
+}
+
+.nic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #fff;
+  height: 54px;
+  border-bottom: 1px solid #BDBDBD;
+}
+
+.nic-login {
+  color: var(--primary-font-color);
+  text-decoration: none;
 }
