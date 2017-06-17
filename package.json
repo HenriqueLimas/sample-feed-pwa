@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "scripts": {
     "clean": "rm -rf dist",
+    "cp-server": "cp -R src/server dist",
     "build-js": "node build/transpile-javascript.js",
     "build-view-to-server": "node build/transpile-view-to-server.js",
-    "build-server": "cp src/server dist"
+    "build-server": "npm run build-view-to-server && npm run cp-server",
+    "build-and-run": "npm run clean && npm run build-js && npm run build-server && npm start",
+    "start": "node dist/server/index.js"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -13,5 +16,8 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1"
+  },
+  "dependencies": {
+    "express": "^4.15.3"
   }
 }

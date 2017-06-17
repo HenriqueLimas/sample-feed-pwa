@@ -3,7 +3,7 @@ const rollup = require('rollup')
 let cache
 
 const entries = [
-  'views/main.js'
+  'views/index.js'
 ]
 
 entries.forEach(entry => {
@@ -13,7 +13,6 @@ entries.forEach(entry => {
   }).then(bundle => {
     cache = bundle
     bundle.write({
-      intro,
       format: 'cjs',
       dest: `dist/${entry}`
     })
