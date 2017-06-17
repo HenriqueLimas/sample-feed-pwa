@@ -1,14 +1,25 @@
 {
   "name": "sample-feeds-pwa",
   "version": "0.0.1",
+  "watch": {
+    "build-and-run": {
+      "patterns": [
+        "src"
+      ],
+      "extensions": "js,css",
+      "quite": false
+    }
+  },
   "scripts": {
     "clean": "rm -rf dist",
     "cp-server": "cp -R src/server dist",
+    "cp-images": "cp -R src/client/images dist/client",
     "build-js": "node build/transpile-javascript.js",
     "build-css": "node build/transpile-css.js",
     "build-view-to-server": "node build/transpile-view-to-server.js",
     "build-server": "npm run build-view-to-server && npm run cp-server",
-    "build-and-run": "npm run clean && npm run build-js && npm run build-css && npm run build-server && npm start",
+    "build-and-run": "npm run clean && npm run build-js && npm run build-css && npm run cp-images && npm run build-server && npm start",
+    "watch": "npm-watch build-and-run",
     "start": "node dist/server/index.js"
   },
   "devDependencies": {
@@ -16,6 +27,7 @@
     "babel-preset-babili": "^0.1.3",
     "babel-preset-es2015-rollup": "^3.0.0",
     "mkdirp": "^0.5.1",
+    "npm-watch": "^0.1.9",
     "postcss": "^6.0.2",
     "postcss-cssnext": "^2.11.0",
     "rollup": "^0.43.0",
