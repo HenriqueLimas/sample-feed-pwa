@@ -1,6 +1,9 @@
 :root {
+  --primary-color: #FFFFFF;
+  --secondary-color: #333333;
   --primary-font-color: #424242;
   --secondary-font-color: #FFFFFF;
+  --border-color: #BDBDBD;
   --light-gray: #AFAFAF;
   --light-gray-transparent: rgba(66, 66, 66, 0.5);
 }
@@ -27,9 +30,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #fff;
+  background-color: var(--primary-color);
   height: 54px;
-  border-bottom: 1px solid #BDBDBD;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .nic-login {
@@ -97,7 +100,7 @@ body {
 }
 
 .nic-card {
-  border: 1px solid #AFAFAF;
+  border: 1px solid var(--border-color);
 }
 
 .nic-article {
@@ -115,16 +118,24 @@ body {
 .nic-article__image-container {
   width: 40%;
   height: 100%;
-  background-color: #AFAFAF;
+  background-color: var(--light-gray);
 }
 
 .nic-article__image {
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #AFAFAF;
+  background-color: var(--light-gray);
   background-position: 50% 50%;
   background-size: cover;
+}
+
+.nic-footer {
+  display: flex;
+  align-items: center;
+  height: 84px;
+  padding: 15px;
+  background-color: var(--secondary-color);
 }
 
 @media (max-width: 520px) {
