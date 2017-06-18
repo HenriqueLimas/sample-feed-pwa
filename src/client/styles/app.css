@@ -45,6 +45,10 @@ body {
   padding: 0;
 }
 
+.nic-main-headline--app-shell {
+  opacity: 0.7;
+}
+
 .nic-main-headline__image {
   display: block;
   background-position: 50% 50%;
@@ -83,4 +87,65 @@ body {
   height: 42px;
   margin-top: 10px;
   width: 100px;
+}
+
+.nic-articles {
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.nic-card {
+  border: 1px solid #AFAFAF;
+}
+
+.nic-article {
+  display: flex;
+  width: 48%;
+  height: 230px;
+  margin-top: 20px;
+}
+
+.nic-article__details {
+  width: 60%;
+  height: 100%;
+}
+
+.nic-article__image-container {
+  width: 40%;
+  height: 100%;
+  background-color: #AFAFAF;
+}
+
+.nic-article__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #AFAFAF;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+@media (max-width: 520px) {
+  .nic-article {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .nic-article {
+    flex-direction: column;
+    flex-flow: column-reverse
+  }
+
+  .nic-article__details {
+    height: 60%;
+    width: 100%;
+  }
+
+  .nic-article__image-container {
+    height: 40%;
+    width: 100%;
+  }
 }
