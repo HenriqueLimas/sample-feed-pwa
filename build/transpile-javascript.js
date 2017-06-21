@@ -24,7 +24,8 @@ entries.forEach(entry => {
     bundle.write({
       intro,
       format: 'iife',
-      dest: `dist/${entry}`
+      dest: `dist/${entry}`,
+      sourceMap: process.env !== 'production'
     })
   })
 })
