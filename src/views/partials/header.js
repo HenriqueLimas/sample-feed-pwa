@@ -36,7 +36,7 @@ const Header = (ctx) => `
       `<div class="nic-user">
         <img src="${ctx.user.img}" alt="${ctx.user.name} picture" />
       </div>` :
-      `<a href="#" class="nic-login">Login</a>`
+      `<a href="/login" class="nic-login">Login</a>`
     }
   </header>
 `
