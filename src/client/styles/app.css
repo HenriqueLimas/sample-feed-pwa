@@ -72,15 +72,18 @@ body {
   letter-spacing: 1px;
 }
 
-.nic-main-headline__title {
+.nic-title {
   margin: 0;
+  font-weight: lighter;
+}
+
+.nic-subtitle {
   font-weight: lighter;
 }
 
 .nic-main-headline__subtitle {
   margin-top: 15px;
   margin-bottom: 0;
-  font-weight: lighter;
 }
 
 .nic-main-headline__actions {
@@ -90,6 +93,10 @@ body {
   height: 42px;
   margin-top: 10px;
   width: 100px;
+}
+
+.nic-action {
+  text-decoration: none;
 }
 
 .nic-articles {
@@ -113,6 +120,15 @@ body {
 .nic-article__details {
   width: 60%;
   height: 100%;
+  padding: 15px
+}
+
+.nic-article__title {
+  margin: 0;
+}
+
+.nic-article__subtitle {
+  color: var(--light-gray);
 }
 
 .nic-article__image-container {
