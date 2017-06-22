@@ -1,7 +1,6 @@
-import log from './utils/log.js'
 import initRouter from './router.js'
+import { query } from './utils/dom'
+import { loadArticleImages } from './load-images.js'
 
-const hello = 'Hello World'
-
-log(hello)
 initRouter()
+loadArticleImages(query('.nic-js-articles', document))
