@@ -8,7 +8,16 @@ const Header = (ctx) => `
 
   <title>${ctx.title}</title>
 
-  <link rel="stylesheet" href="static/styles/app-shell.css">
+  <link rel="preload" href="/static/images/logo.png" as="image">
+  <link rel="preload" href="/static/images/logo-white.png" as="image">
+  ${
+    ctx.scripts.map(path => `
+      <link rel="preload" href="/static/scripts/${path}" as="script">
+    `).join('\n')
+  }
+
+  <link rel="stylesheet" href="/static/styles/app-shell.css">
+
 </head>
 
 <body>
@@ -29,7 +38,7 @@ const Header = (ctx) => `
       `
     }
     <a class="nic-logo" href="/">
-      <img src="static/images/logo.png" alt="News in the city logo">
+      <img src="/static/images/logo.png" alt="News in the city logo">
     </a>
 
     ${ctx.user ?

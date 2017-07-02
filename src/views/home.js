@@ -12,7 +12,7 @@ const Home = (ctx) => {
   const articles = isAppShell ? [{}, {}, {}, {}] : ctx.articles
 
   return `
-    ${Header({ title: 'NewsInCity' })}
+    ${Header({ title: 'NewsInCity', scripts: ctx.scripts })}
 
     <section class="nic-main-headline nic-js-main-headline" data-image="${headline.image}">
       ${ headline ? `

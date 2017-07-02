@@ -7,7 +7,11 @@ const changeBackgroundImage = element => {
   const imageUrl = getImageUrl(element)
 
   const imageContainer = queryImageContainer(element)
-  imageContainer.style.backgroundImage = `url(${imageUrl})`
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      imageContainer.style.backgroundImage = `url(${imageUrl})`
+    })
+  })
 }
 
 export const loadArticleImages = compose(map(changeBackgroundImage), queryAll('.nic-js-article'))
