@@ -1,20 +1,39 @@
 package articles
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/gorilla/mux"
+	"context"
+	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+
+	apihttp "../http"
+	"../location"
 )
 
-func returnAllArticles(w http.ResponseWriter, r *http.Request) {
-	articles := GetMainPage()
-	fmt.Println("Endpoint Hit: articles")
+// MakeHandler router
+func MakeHandler(as Service, logger log.Logger) http.Handler {
+	loadMainPageHandler := apihttp.NewServer(
+		makeLoadMainPage(as),
+		decodeLoadMainPageRequest,
+		logger,
+	)
 
-	json.NewEncoder(w).Encode(articles)
+	r := mux.NewRouter()
+
+	r.Handle("/v1/articles/main-page", loadMainPageHandler).Methods("GET")
+
+	return r
 }
 
-// Init router
-func Init(router *mux.Router) {
-	router.HandleFunc("/main-page", returnAllArticles)
+func decodeLoadMainPageRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	query := r.URL.Query()
+	origin := location.Location{
+		Lat:  query.Get("lat"),
+		Long: query.Get("long"),
+	}
+
+	return loadMainPageRequest{
+		Origin: origin,
+	}, nil
 }
