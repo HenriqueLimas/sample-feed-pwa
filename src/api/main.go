@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	apiarticles "./articles"
-	"./database"
+	apiarticles "github.com/HenriqueLimas/sample-feed-pwa/src/api/articles"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/database"
 )
 
 const (

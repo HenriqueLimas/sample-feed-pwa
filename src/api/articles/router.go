@@ -7,8 +7,8 @@ import (
 
 	"github.com/gorilla/mux"
 
-	apihttp "../http"
-	"../location"
+	apihttp "github.com/HenriqueLimas/sample-feed-pwa/src/api/http"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
 // MakeHandler router

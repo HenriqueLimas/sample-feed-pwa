@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"../endpoint"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/endpoint"
 )
 
 // Server implements http.Handler

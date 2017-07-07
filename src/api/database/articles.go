@@ -1,8 +1,8 @@
 package database
 
 import (
-	"../articles"
-	"../location"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/articles"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
 type articleRepository struct {

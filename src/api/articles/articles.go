@@ -1,7 +1,7 @@
 package articles
 
 import (
-	"../location"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
 // Article type for articles

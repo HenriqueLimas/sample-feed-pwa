@@ -3,8 +3,8 @@ package articles
 import (
 	"context"
 
-	"../endpoint"
-	"../location"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/endpoint"
+	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
 type loadMainPageRequest struct {
