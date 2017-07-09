@@ -1,0 +1,89 @@
+body {
+  background-color: #078B75;
+}
+
+.nic-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
+}
+
+.nic-view__close {
+  height: 25px;
+}
+
+.nic-view__close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.nic-view__title {
+  font-size: 30px;
+  text-align: center;
+}
+
+.nic-login-view__title {
+  max-width: 300px;
+  color: #FFFFFF;
+  font-weight: normal;
+  margin: 0;
+}
+
+.nic-view__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  font-size: 16px;
+  width: 100%;
+  padding: 30px;
+}
+
+.nic-login-view__social {
+  height: 62px;
+  width: 100%;
+  max-width: 292px;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  border: 1px solid #95989A;
+  margin-bottom: 18px;
+}
+
+.nic-login-view__social-button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: normal;
+  color: #424242;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+
+.nic-login-view__social-description {
+  margin-left: 10px;
+}
+
+.nic-login-view__email {
+  text-align: center;
+}
+
+.nic-login-view__email-link {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.nic-view__footer {
+  margin-top: 40px;
+}
+
+.nic-login-view__terms {
+  font-size: 12px;
+  color: #FFFFFF;
+}
