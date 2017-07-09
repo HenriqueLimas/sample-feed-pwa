@@ -49,7 +49,14 @@ const loadView = ctx => {
 
 const updateView = ctx => {
   return new Promise(resolve => {
-    requestAnimationFrame(() => resolve(ctx))
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // TODO: must improve, that is not the right solution
+        document.head.innerHTML = ctx.newView.head.innerHTML
+        document.body.innerHTML = ctx.newView.body.innerHTML
+        resolve(ctx)
+      })
+    })
   })
 }
 
