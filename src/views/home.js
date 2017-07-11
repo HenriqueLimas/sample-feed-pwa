@@ -14,7 +14,7 @@ const Home = (ctx) => {
   return `
     ${Header({ title: 'NewsInCity', scripts: ctx.scripts })}
 
-    <section class="nic-main-headline nic-js-main-headline" data-image="${headline.image}">
+    <section id="home" class="nic-main-headline nic-js-main-headline" data-image="${headline.image}">
       ${ headline ? `
         <a class="nic-main-headline__image" href="${headline.url}"></a>
         <div class="nic-main-headline__details">

@@ -25,6 +25,25 @@ body {
   margin: 0 auto !important;
 }
 
+body:before {
+  content: "";
+  transition: opacity .35s cubic-bezier(0,0,.3,1);
+  opacity: 0;
+  will-change: opacity;
+}
+
+body.nic-spinner--loading:before {
+  position: fixed;
+  content: " ";
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 10;
+}
+
 .nic-header {
   display: flex;
   justify-content: space-between;
@@ -175,4 +194,26 @@ body {
     height: 40%;
     width: 100%;
   }
+}
+
+.nic-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+  transition: transform .35s cubic-bezier(0,0,.3,1);
+  will-change: transform, opacity;
+}
+
+.nic-view--hide {
+  opacity: 0;
+}
+
+.nic-view--bottom {
+  transform: translateY(100vh);
+}
+
+.nic-view--right {
+  transform: translateX(100vh);
 }

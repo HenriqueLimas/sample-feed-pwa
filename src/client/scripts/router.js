@@ -11,7 +11,7 @@ const showSpinner = ctx => {
   return new Promise(resolve => {
     ctx.spinnerTimeout = setTimeout(() => {
       ctx.spinner.classList.add('nic-spinner--loading')
-    }, 1000)
+    }, 250)
 
     resolve(ctx)
   })
@@ -27,8 +27,18 @@ const hideSpinner = ctx => {
   })
 }
 
+const getViewIdFromLocation = location => location.pathname.split('/')[1] || 'home'
+
 const loadView = ctx => {
   return new Promise((resolve, reject) => {
+    const viewId = getViewIdFromLocation(ctx.location)
+    const viewExists = viewId && document.getElementById(viewId)
+
+    if (viewExists) {
+      ctx.newView = viewExists.parentNode
+      return resolve(ctx)
+    }
+
     const path = ctx.location.pathname
     const request = new XMLHttpRequest()
     request.responseType = 'document'
@@ -49,14 +59,89 @@ const loadView = ctx => {
 
 const updateView = ctx => {
   return new Promise(resolve => {
-    requestAnimationFrame(() => {
+    const viewPosition = ctx.clickedAnchor.getAttribute('data-nic-view-position')
+    const viewId = getViewIdFromLocation(ctx.location)
+    let viewToClose = document.querySelector('.nic-view--open')
+
+    if (viewToClose && viewToClose.id !== viewId) {
+      if (viewToClose) {
+        requestAnimationFrame(() => {
+          viewToClose.classList.remove('nic-view--open')
+          viewToClose.classList.add(`nic-view--${viewPosition}`)
+          viewToClose.addEventListener('transitionend', hideElement)
+        })
+
+        function hideElement () {
+          requestAnimationFrame(() => {
+            viewToClose.classList.add(`nic-view--hide`)
+            viewToClose = null
+          })
+
+          viewToClose.removeEventListener('transitionend', hideElement)
+        }
+      }
+    }
+
+    const viewExists = document.getElementById(viewId)
+    const newView = ctx.newView.querySelector('.nic-view')
+    let isLoadingStyles = false
+    let view
+
+    if (!newView || viewId === 'home') return resolve(ctx)
+
+    if (!viewExists) {
+      const newStyles = Array.from(ctx.newView.querySelectorAll('link[rel="stylesheet"]'))
+      const currentStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+        .map(link => link.getAttribute('href'))
+
+      const stylesToAdd = newStyles
+        .filter(link => currentStyles.indexOf(link.getAttribute('href')) === -1)
+        .map(link => {
+          isLoadingStyles = true
+          const linkToAdd = link.cloneNode(true)
+          document.head.appendChild(linkToAdd)
+
+          linkToAdd.addEventListener('load', loadView)
+
+          function loadView () {
+            isLoadingStyles = false
+            showView()
+
+            linkToAdd.removeEventListener('load', loadView)
+          }
+        })
+
+      view = document.createElement('div')
+      view.id = viewId
+      view.classList.add(`nic-view--${viewPosition}`)
+      const newViewClass = newView.className.split(' ')
+
+      newViewClass
+        .map(className => view.classList.add(className))
+
+      view.innerHTML = newView.innerHTML
+      document.body.appendChild(view)
+    }
+
+    view = view || viewExists
+
+    function showView () {
       requestAnimationFrame(() => {
-        // TODO: must improve, that is not the right solution
-        document.head.innerHTML = ctx.newView.head.innerHTML
-        document.body.innerHTML = ctx.newView.body.innerHTML
-        resolve(ctx)
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            view.classList.add('nic-view--open')
+            view.classList.remove('nic-view--hide')
+            view.classList.remove(`nic-view--${viewPosition}`)
+            resolve(ctx)
+          })
+        }, 100)
       })
-    })
+    }
+
+    if (!isLoadingStyles) {
+      showView()
+    }
+
   })
 }
 
