@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	apiarticles "github.com/HenriqueLimas/sample-feed-pwa/src/api/articles"
+	apiauth "github.com/HenriqueLimas/sample-feed-pwa/src/api/auth"
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/database"
 )
 
@@ -21,8 +22,9 @@ type mockDatabase struct{}
 
 func main() {
 	var (
-		addr     = envString("PORT", defaultPort)
-		httpAddr = flag.String("http.addr", ":"+addr, "HTTP listen address")
+		addr       = envString("PORT", defaultPort)
+		authSecret = envString("AUTH_SECRET", "Yay")
+		httpAddr   = flag.String("http.addr", ":"+addr, "HTTP listen address")
 	)
 
 	flag.Parse()
@@ -36,12 +38,14 @@ func main() {
 	)
 
 	var as apiarticles.Service
+	var authService = apiauth.NewService(authSecret)
 
 	as = apiarticles.NewService(articles)
 
 	mux := http.NewServeMux()
 
 	mux.Handle("/v1/articles/", apiarticles.MakeHandler(as, *logger))
+	mux.Handle("/v1/login", apiauth.MakeHandler(authService, *logger))
 
 	http.Handle("/", accessControl(mux))
 
