@@ -46,6 +46,16 @@ CREATE TABLE users_by_username (
   PRIMARY KEY (username)
 );
 
+CREATE TABLE users_by_email_password (
+  email text,
+  password text,
+  user_id uuid,
+  username text,
+  name frozen<name>,
+  registration_date timestamp,
+  PRIMARY KEY (email, password)
+);
+
 CREATE TABLE contributors_by_article (
   article_id timeuuid,
   user_id uuid,

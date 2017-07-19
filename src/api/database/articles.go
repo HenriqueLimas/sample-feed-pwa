@@ -1,12 +1,14 @@
 package database
 
 import (
+	"github.com/gocql/gocql"
+
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/articles"
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
 type articleRepository struct {
-	DB *Database
+	DB *gocql.Session
 }
 
 func (article *articleRepository) FindHeadlineByLocation(origin location.Location) (*articles.Article, error) {
@@ -28,7 +30,7 @@ func (article *articleRepository) LoadLatestArticlesByLocation(origin location.L
 }
 
 // NewArticleRepository create a new article Repository
-func NewArticleRepository(db *Database) articles.Repository {
+func NewArticleRepository(db *gocql.Session) articles.Repository {
 	r := &articleRepository{
 		DB: db,
 	}

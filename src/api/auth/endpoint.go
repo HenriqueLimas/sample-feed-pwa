@@ -18,10 +18,10 @@ type loginResponse struct {
 
 func (r loginResponse) error() error { return r.Err }
 
-func makeLogin(a Service) endpoint.Endpoint {
+func makeLogin(s Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		req := request.(loginRequest)
-		token, err := a.GenerateToken(User{Username: req.Username})
+		token, err := s.GenerateToken(User{Username: req.Username})
 
 		return loginResponse{Token: token, Err: err}, nil
 	}

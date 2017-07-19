@@ -22,19 +22,25 @@ type mockDatabase struct{}
 
 func main() {
 	var (
-		addr       = envString("PORT", defaultPort)
-		authSecret = envString("AUTH_SECRET", "Yay")
-		httpAddr   = flag.String("http.addr", ":"+addr, "HTTP listen address")
+		addr              = envString("PORT", defaultPort)
+		authSecret        = envString("AUTH_SECRET", "Yay")
+		cassandraAddress  = envString("CASSANDRA_ADDRESS", "192.168.99.100")
+		cassandraKeyspace = envString("CASSANDRA_KEYSPACE", "news_in_city")
+		httpAddr          = flag.String("http.addr", ":"+addr, "HTTP listen address")
 	)
 
 	flag.Parse()
 
 	logger := log.New(os.Stderr, "Logger: ", log.Lshortfile)
 
-	db := database.Database{}
+	cassandraSession, err := database.InitCassandra(cassandraKeyspace, cassandraAddress)
+	defer cassandraSession.Close()
+	if err != nil {
+		logger.Fatal(err)
+	}
 
 	var (
-		articles = database.NewArticleRepository(&db)
+		articles = database.NewArticleRepository(cassandraSession)
 	)
 
 	var as apiarticles.Service
