@@ -41,17 +41,19 @@ func main() {
 
 	var (
 		articles = database.NewArticleRepository(cassandraSession)
+		users    = database.NewUserRepository(cassandraSession, logger)
 	)
 
-	var as apiarticles.Service
-	var authService = apiauth.NewService(authSecret)
+	var articleService apiarticles.Service
+	var authService apiauth.Service
 
-	as = apiarticles.NewService(articles)
+	articleService = apiarticles.NewService(articles)
+	authService = apiauth.NewService(authSecret, users)
 
 	mux := http.NewServeMux()
 
-	mux.Handle("/v1/articles/", apiarticles.MakeHandler(as, *logger))
-	mux.Handle("/v1/login", apiauth.MakeHandler(authService, *logger))
+	mux.Handle("/v1/articles/", apiarticles.MakeHandler(articleService, *logger))
+	mux.Handle("/v1/auth/", apiauth.MakeHandler(authService, *logger))
 
 	http.Handle("/", accessControl(mux))
 

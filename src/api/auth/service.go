@@ -11,10 +11,12 @@ import (
 type Service interface {
 	Middleware(next http.Handler) http.Handler
 	GenerateToken(user interface{}) (string, error)
+	AddUser(user interface{}) (*User, error)
 }
 
 type service struct {
 	secret []byte
+	users  Repository
 }
 
 // UserClaims claims for user
@@ -45,9 +47,16 @@ func (a *service) GenerateToken(user interface{}) (string, error) {
 	return token.SignedString(a.secret)
 }
 
+func (a *service) AddUser(user interface{}) (*User, error) {
+	userToAdd := user.(User)
+
+	return a.users.AddUser(userToAdd)
+}
+
 // NewService create a new authentication
-func NewService(secret string) Service {
+func NewService(secret string, users Repository) Service {
 	return &service{
 		secret: []byte(secret),
+		users:  users,
 	}
 }
