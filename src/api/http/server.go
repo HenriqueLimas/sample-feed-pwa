@@ -12,10 +12,24 @@ import (
 
 // Server implements http.Handler
 type Server struct {
-	endpoint endpoint.Endpoint
-	decode   DecodeRequestFunc
-	logger   log.Logger
+	endpoint     endpoint.Endpoint
+	decode       DecodeRequestFunc
+	logger       log.Logger
+	errorEncoder ErrorEncoder
 }
+
+// Headerer headers interface
+type Headerer interface {
+	Headers() http.Header
+}
+
+// StatusCoder status coder interface
+type StatusCoder interface {
+	StatusCode() int
+}
+
+// ErrorEncoder function type for error encoders
+type ErrorEncoder func(ctx context.Context, err error, w http.ResponseWriter)
 
 // NewServer create a new server
 func NewServer(
@@ -24,9 +38,10 @@ func NewServer(
 	logger log.Logger,
 ) *Server {
 	s := &Server{
-		endpoint: endpoint,
-		decode:   decode,
-		logger:   logger,
+		endpoint:     endpoint,
+		decode:       decode,
+		logger:       logger,
+		errorEncoder: DefaultErrorEncoder,
 	}
 
 	return s
@@ -45,18 +60,21 @@ func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	request, err := s.decode(ctx, r)
 	if err != nil {
 		s.logger.Println(err)
+		s.errorEncoder(ctx, err, w)
 		return
 	}
 
 	response, err := s.endpoint(ctx, request)
 	if err != nil {
 		s.logger.Println(err)
+		s.errorEncoder(ctx, err, w)
 		return
 	}
 
 	err = encodeResponse(ctx, w, response)
 	if err != nil {
 		s.logger.Println(err)
+		s.errorEncoder(ctx, err, w)
 		return
 	}
 }
@@ -92,4 +110,26 @@ func encodeError(err error, w http.ResponseWriter) {
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"error": err.Error(),
 	})
+}
+
+// DefaultErrorEncoder default error encoder
+func DefaultErrorEncoder(_ context.Context, err error, w http.ResponseWriter) {
+	contentType, body := "text/plain; charset=utf-8", []byte(err.Error())
+	if marshaler, ok := err.(json.Marshaler); ok {
+		if jsonBody, marshalErr := marshaler.MarshalJSON(); marshalErr == nil {
+			contentType, body = "application/json; charset=utf-8", jsonBody
+		}
+	}
+	w.Header().Set("Content-Type", contentType)
+	if headerer, ok := err.(Headerer); ok {
+		for k := range headerer.Headers() {
+			w.Header().Set(k, headerer.Headers().Get(k))
+		}
+	}
+	code := http.StatusInternalServerError
+	if sc, ok := err.(StatusCoder); ok {
+		code = sc.StatusCode()
+	}
+	w.WriteHeader(code)
+	w.Write(body)
 }
