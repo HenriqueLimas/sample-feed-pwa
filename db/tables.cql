@@ -1,6 +1,6 @@
 DROP KEYSPACE IF EXISTS news_in_city;
 
-CREATE KEYSPACE news_in_city WITH replication = { 'class': 'SimpleStrategy', 'replication_factor': 3 };
+CREATE KEYSPACE news_in_city WITH replication = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
 
 USE news_in_city;
 
@@ -27,38 +27,35 @@ CREATE TYPE encoding (
 );
 
 CREATE TABLE users (
-  user_id uuid,
+  user_id timeuuid,
   username text,
   name frozen<name>,
   email text,
   password text,
-  registration_date timestamp,
   PRIMARY KEY (user_id)
 );
 
 CREATE TABLE users_by_username (
   username text,
-  user_id uuid,
+  user_id timeuuid,
   name frozen<name>,
   email text,
   password text,
-  registration_date timestamp,
   PRIMARY KEY (username)
 );
 
 CREATE TABLE users_by_email_password (
   email text,
   password text,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   name frozen<name>,
-  registration_date timestamp,
   PRIMARY KEY (email, password)
 );
 
 CREATE TABLE contributors_by_article (
   article_id timeuuid,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   email text,
   title text,
@@ -72,7 +69,7 @@ CREATE TABLE contributors_by_article (
 );
 
 CREATE TABLE contributors_by_user (
-  user_id uuid,
+  user_id timeuuid,
   article_id timeuuid,
   username text,
   email text,
@@ -88,7 +85,7 @@ CREATE TABLE contributors_by_user (
 
 CREATE TABLE articles (
   article_id timeuuid,
-  user_id uuid,
+  user_id timeuuid,
   date timestamp,
   title text,
   subtitle text,
@@ -104,7 +101,7 @@ CREATE TABLE articles (
 );
 
 CREATE TABLE articles_by_user (
-  user_id uuid,
+  user_id timeuuid,
   article_id timeuuid,
   username text,
   date timestamp,
@@ -145,7 +142,7 @@ CREATE TABLE location_distance (
 );
 
 CREATE TABLE articles_by_user_and_status (
-  user_id uuid,
+  user_id timeuuid,
   status text,
   article_id timeuuid,
   username text,
@@ -170,7 +167,7 @@ CREATE TABLE likes_by_article (
 CREATE TABLE likes_by_article_and_user (
   article_id timeuuid,
   like_timestamp timestamp,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   PRIMARY KEY ((article_id), like_timestamp, user_id)
 );
@@ -184,7 +181,7 @@ CREATE TABLE bookmarks_by_article (
 CREATE TABLE bookmarks_by_article_and_user (
   article_id timeuuid,
   bookmark_timestamp timestamp,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   PRIMARY KEY ((article_id), bookmark_timestamp, user_id)
 );
@@ -198,7 +195,7 @@ CREATE TABLE shares_by_article (
 CREATE TABLE shares_by_article_and_user (
   article_id timeuuid,
   share_timestamp timestamp,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   share_type text,
   PRIMARY KEY ((article_id), share_timestamp, user_id)
@@ -213,7 +210,7 @@ CREATE TABLE comments_by_article (
 CREATE TABLE comments_by_article_and_user (
   article_id timeuuid,
   comment_timestamp timestamp,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   comment text,
   PRIMARY KEY ((article_id), comment_timestamp, user_id)
@@ -223,7 +220,7 @@ CREATE TABLE interactions_by_article_and_user (
   article_id timeuuid,
   interaction_timestamp timestamp,
   interaction_type text,
-  user_id uuid,
+  user_id timeuuid,
   username text,
   PRIMARY KEY ((article_id), interaction_timestamp, interaction_type, user_id)
 );
