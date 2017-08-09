@@ -8,7 +8,9 @@ const {
 } = require('../utils')
 
 module.exports = function home (req, res) {
-  Article.getFirstPage()
+  const { l:location } = req.cookies
+
+  Article.getFirstPage({ location })
     .map(addScripts(['app.js']))
     .chain(render(Home))
     .fork(ServerError(res), ServerSuccess(res))
