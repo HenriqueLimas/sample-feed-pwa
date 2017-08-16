@@ -21,12 +21,24 @@ func (article *articleRepository) FindHeadlineByLocation(origin location.Locatio
 }
 
 func (article *articleRepository) LoadLatestArticlesByLocation(origin location.Location) (*articles.Articles, error) {
-	return &articles.Articles{
-		articles.Article{URL: "/posts/569878", Title: "John closed", Subtitle: "John store closed yesterday", Image: "https://monosnap.com/file/QYowGO3y9hIyRH8c6FuhXsR5X9XJBU.png"},
-		articles.Article{URL: "/posts/984564", Title: "Taxi vs Uber", Subtitle: "Who will win that battle in Montepelier", Image: "https://monosnap.com/file/GOtFNlrmvq0NGgRTV8nX0K5oTuT1iZ.png"},
-		articles.Article{URL: "/posts/787878", Title: "New Graffito", Subtitle: "The wall has a new Graffito", Image: "https://monosnap.com/file/csxHA93yyHdaFd1PoL7H8eDV44f6lW.png"},
-		articles.Article{URL: "/posts/548975", Title: "Murder on downtown", Subtitle: "Yesterday downtown had a murder", Image: "https://monosnap.com/file/XN4zaQlEhCd0xtQOBWxt0RaKJQTHNz.png"},
-	}, nil
+	var articlesFromDb articles.Articles
+
+	query := "SELECT article_id, title, subtitle, content, images FROM articles_by_user LIMIT 5"
+	iterable := article.DB.Query(query).Iter()
+	articleIterable := map[string]interface{}{}
+
+	for iterable.MapScan(articleIterable) {
+		images := articleIterable["images"].([]map[string]interface{})
+
+		articlesFromDb = append(articlesFromDb, articles.Article{
+			URL:      "posts/" + articleIterable["article_id"].(gocql.UUID).String(),
+			Title:    articleIterable["title"].(string),
+			Subtitle: articleIterable["subtitle"].(string),
+			Image:    images[0]["url"].(string),
+		})
+	}
+
+	return &articlesFromDb, nil
 }
 
 // NewArticleRepository create a new article Repository

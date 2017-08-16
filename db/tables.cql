@@ -224,3 +224,10 @@ CREATE TABLE interactions_by_article_and_user (
   username text,
   PRIMARY KEY ((article_id), interaction_timestamp, interaction_type, user_id)
 );
+
+INSERT INTO articles (article_id, user_id, date, title, subtitle, content, images)
+     VALUES (1461e930-82d7-11e7-8b73-6d2c86545d91, 50554d6e-29bb-11e5-b345-feff819cdc9f, toUnixTimestamp(1461e930-82d7-11e7-8b73-6d2c86545d91), 'Murder on downtown', 'Yesterday downtown had a murder', 'Yesterday downtown had a murder', {{url:'https://monosnap.com/file/XN4zaQlEhCd0xtQOBWxt0RaKJQTHNz.png', description: 'Picture of the person who died'}});
+
+INSERT INTO articles_by_user (article_id, user_id, username, date, title, subtitle, content, images)
+     VALUES (1461e930-82d7-11e7-8b73-6d2c86545d91, 50554d6e-29bb-11e5-b345-feff819cdc9f, 'henrique_limas', toUnixTimestamp(1461e930-82d7-11e7-8b73-6d2c86545d91), 'Murder on downtown', 'Yesterday downtown had a murder', 'Yesterday downtown had a murder', {{url:'https://monosnap.com/file/XN4zaQlEhCd0xtQOBWxt0RaKJQTHNz.png', description: 'Picture of the person who died'}});
+
