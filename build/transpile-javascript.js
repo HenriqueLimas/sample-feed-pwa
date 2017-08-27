@@ -5,11 +5,14 @@ const intro = `/**
 
 const rollup = require('rollup')
 const babel = require('rollup-plugin-babel')
+const resolve = require('rollup-plugin-node-resolve')
+const commonjs = require('rollup-plugin-commonjs')
 
 let cache
 
 const entries = [
-  'client/scripts/app.js'
+  'client/scripts/app.js',
+  'client/scripts/home.js'
 ]
 
 entries.forEach(entry => {
@@ -17,6 +20,8 @@ entries.forEach(entry => {
     entry: `src/${entry}`,
     cache,
     plugins: [
+      resolve({ jsnext: true }),
+      commonjs(),
       babel()
     ]
   }).then(bundle => {

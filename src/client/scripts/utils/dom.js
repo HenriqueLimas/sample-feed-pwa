@@ -1,3 +1,4 @@
+import morphdom from 'morphdom'
 import { curry, compose } from './fp.js'
 
 const elementsToArray = elements => Array.from(elements)
@@ -12,4 +13,8 @@ export const queryAll = curry((query, parent) => {
 
 export const data = curry((dataName, element) => {
   return element.getAttribute(`data-${dataName}`)
+})
+
+export const updateDom = curry((from, to) => {
+  return morphdom(from, to)
 })

@@ -31,8 +31,12 @@ const Home = (ctx) => {
     </section>
 
     <div class="nic-articles nic-js-articles">
-      ${articles.map(article => Article({ article })).join('')}
     </div>
+
+    <script>
+      window.nic = window.nic || {}
+      window.nic.articles = ${JSON.stringify(articles)}
+    </script>
 
     ${Footer({ title: 'Home', scripts: ctx.scripts })}
   `
