@@ -35,3 +35,5 @@ In another terminal, access the app folder and run the api
 cd sample-feed-pwa
 docker/run
 ```
+
+In a browser, access [localhost:3000](http://localhost:3000) and voilà!
