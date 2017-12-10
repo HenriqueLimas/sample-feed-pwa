@@ -4,9 +4,7 @@ A sample feed pwa (Work in progress)
 ## Pre-requesite
 
 - Node
-- Go
-  - gorilla/mux -> Install with `go get -u github.com/gorilla/mux`
-- Docker (coming soon)
+- Docker
 
 ## Install
 
@@ -25,7 +23,7 @@ npm install
 ```
 
 ## Run
-Run the dev server:
+Run the frontend dev server:
 
 ```
 npm run dev
@@ -35,5 +33,5 @@ In another terminal, access the app folder and run the api
 
 ```
 cd sample-feed-pwa
-go   run src/api/main.go
+docker/run
 ```
