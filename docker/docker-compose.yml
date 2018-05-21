@@ -4,11 +4,13 @@ services:
     build:
       context: ..
       dockerfile: ./docker/modules/api/Dockerfile
+    volumes:
+      - "../src/api:/go/src/github.com/HenriqueLimas/sample-feed-pwa/src/api"
     ports:
       - "8080:8080"
     links:
       - "db:cassandra"
-    command:  ["../../docker/wait-for-it.sh", "-t", "30", "db:9041", "--", "go-wrapper", "run"]
+    command:  ["../../docker/wait-for-it.sh", "-t", "30", "db:9041", "--", "fresh", "-c", "runner.conf", "main.go"]
     environment:
       CASSANDRA_ADDRESS: cassandra
 
