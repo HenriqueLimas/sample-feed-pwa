@@ -6,10 +6,12 @@ import (
 
 // Article type for articles
 type Article struct {
-	URL      string `json:"url"`
+	ID       string `json:"article_id,omitempty"`
+	URL      string `json:"url,omitempty"`
 	Title    string `json:"title"`
 	Subtitle string `json:"subtitle"`
 	Image    string `json:"image"`
+	Content  string `json:"content,omitempty"`
 }
 
 // Articles list of article
@@ -25,4 +27,5 @@ type MainPage struct {
 type Repository interface {
 	FindHeadlineByLocation(origin location.Location) (*Article, error)
 	LoadLatestArticlesByLocation(origin location.Location) (*Articles, error)
+	LoadArticleByID(id string) (*Article, error)
 }

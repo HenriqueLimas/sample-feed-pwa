@@ -7,6 +7,7 @@ import (
 // Service interface
 type Service interface {
 	LoadMainPageByLocation(origin location.Location) (*MainPage, error)
+	LoadArticleByID(id string) (*Article, error)
 }
 
 type service struct {
@@ -28,6 +29,15 @@ func (s *service) LoadMainPageByLocation(origin location.Location) (*MainPage, e
 		Headline: *headline,
 		Articles: *articles,
 	}, nil
+}
+
+func (s *service) LoadArticleByID(id string) (*Article, error) {
+	article, err := s.articles.LoadArticleByID(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return article, nil
 }
 
 // NewService creates a article service

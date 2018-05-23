@@ -97,7 +97,7 @@ CREATE TABLE articles (
   video_encoding frozen<encoding>,
   images Set<frozen<image>>,
   tags Set<text>,
-  PRIMARY KEY ((user_id), article_id)
+  PRIMARY KEY (article_id)
 );
 
 CREATE TABLE articles_by_user (

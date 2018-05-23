@@ -7,6 +7,7 @@ import (
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
 )
 
+// Main Page
 type loadMainPageRequest struct {
 	Origin location.Location
 }
@@ -25,5 +26,29 @@ func makeLoadMainPage(s Service) endpoint.Endpoint {
 		mainPage, err := s.LoadMainPageByLocation(req.Origin)
 
 		return loadMainPageResponse{Headline: mainPage.Headline, Articles: mainPage.Articles, Err: err}, nil
+	}
+}
+
+// Article
+type loadArticleRequest struct {
+	ID string
+}
+
+type loadArticleResponse struct {
+	Article Article `json:"article"`
+	Err     error
+}
+
+func (r loadArticleResponse) error() error { return r.Err }
+
+func makeLoadArticle(s Service) endpoint.Endpoint {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
+		req := request.(loadArticleRequest)
+		article, err := s.LoadArticleByID(req.ID)
+		if err != nil {
+			return nil, err
+		}
+
+		return loadArticleResponse{Article: *article, Err: err}, nil
 	}
 }

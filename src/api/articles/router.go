@@ -19,9 +19,16 @@ func MakeHandler(as Service, logger log.Logger) http.Handler {
 		logger,
 	)
 
+	loadArticleHandler := apihttp.NewServer(
+		makeLoadArticle(as),
+		decodeLoadArticleRequest,
+		logger,
+	)
+
 	r := mux.NewRouter()
 
 	r.Handle("/v1/articles/main-page", loadMainPageHandler).Methods("GET")
+	r.Handle("/v1/articles/{id}", loadArticleHandler).Methods("GET")
 
 	return r
 }
@@ -35,5 +42,13 @@ func decodeLoadMainPageRequest(_ context.Context, r *http.Request) (interface{},
 
 	return loadMainPageRequest{
 		Origin: origin,
+	}, nil
+}
+
+func decodeLoadArticleRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	vars := mux.Vars(r)
+
+	return loadArticleRequest{
+		ID: vars["id"],
 	}, nil
 }
