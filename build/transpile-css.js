@@ -25,7 +25,8 @@ const appShellEntries = [
 const BASE_PATH = 'src/client/styles/'
 
 const styles = [
-  'login.css'
+  'login.css',
+  'article.css',
 ]
 
 const processCss = entry => {
@@ -43,9 +44,10 @@ const processCss = entry => {
 const writeFile = fileName => results => {
   const css = results.reduce((css, result) => css + result.css, '')
   const map = results.reduce((map, result) => result.map ? map + result.map : map, '')
+  const logError = error => error && console.error(error)
 
-  fs.writeFile(`dist/client/styles/${fileName}`, css)
-  if (map) fs.writeFile(`dist/client/styles/${fileName}.map`, map)
+  fs.writeFile(`dist/client/styles/${fileName}`, css, logError)
+  if (map) fs.writeFile(`dist/client/styles/${fileName}.map`, map, logError)
 }
 
 mkdirp('dist/client/styles', err => {
