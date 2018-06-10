@@ -27,7 +27,7 @@ const hideSpinner = ctx => {
   })
 }
 
-const getViewIdFromLocation = location => location.pathname.split('/')[1] || 'home'
+const getViewIdFromLocation = location => location.pathname.replace('/', '') || 'home'
 
 const loadView = ctx => {
   return new Promise((resolve, reject) => {
