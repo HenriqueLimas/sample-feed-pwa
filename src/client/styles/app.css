@@ -6,6 +6,7 @@
   --border-color: #BDBDBD;
   --light-gray: #AFAFAF;
   --light-gray-transparent: rgba(66, 66, 66, 0.5);
+  --view-position: 140vh;
 }
 
 html, body {
@@ -211,9 +212,13 @@ body.nic-spinner--loading:before {
 }
 
 .nic-view--bottom {
-  transform: translateY(100vh);
+  transform: translateY(var(--view-position));
 }
 
 .nic-view--right {
-  transform: translateX(100vh);
+  transform: translateX(var(--view-position));
+}
+
+.nic-view--left {
+  transform: translateX(-var(--view-position));
 }
