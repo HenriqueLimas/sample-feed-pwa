@@ -12,7 +12,7 @@ module.exports = function articleDetails (req, res) {
   const { id } = req.params
 
   ArticleModel.getArticle(id)
-    .map(addScripts(['app.js']))
+    .map(addScripts([]))
     .map(addStyles(['article.css']))
     .chain(render(Article))
     .fork(ServerError(res), ServerSuccess(res))
