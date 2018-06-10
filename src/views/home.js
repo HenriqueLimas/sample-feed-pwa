@@ -1,7 +1,6 @@
 import Header from './partials/header.js'
 import Footer from './partials/footer.js'
 
-import Article from './components/article'
 import Like from './components/actions/like'
 import Bookmark from './components/actions/bookmark'
 import Share from './components/actions/share'

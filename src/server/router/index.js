@@ -6,8 +6,10 @@ router.use(cookieParser())
 
 const home = require('./home')
 const login = require('./login')
+const article = require('./article')
 
 router.get('/', home)
 router.get('/login', login)
+router.get('/posts/:id', article)
 
 module.exports = router
