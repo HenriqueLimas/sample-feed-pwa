@@ -28,6 +28,7 @@ const getJson = url =>
 const assign = (target, source) => Object.assign({}, target, source)
 
 const addScripts = scripts => data => assign(data, { scripts })
+const addStyles = styles => data => assign(data, { styles })
 const render = View => data =>
   Either.of(data)
     .map(tryCatch(View))
@@ -41,6 +42,7 @@ module.exports = {
   getJson,
   assign,
   addScripts,
+  addStyles,
   tryCatch,
   render
 }
