@@ -1,5 +1,6 @@
 .nic-article-view {
   background-color: #FFFFFF;
+  margin-top: var(--height--header);
 }
 
 .nic-view {

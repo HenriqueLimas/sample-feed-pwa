@@ -59,26 +59,25 @@ const loadView = ctx => {
 
 const updateView = ctx => {
   return new Promise(resolve => {
-    const viewPosition = ctx.clickedAnchor.getAttribute('data-nic-view-position')
     const viewId = getViewIdFromLocation(ctx.location)
     let viewToClose = document.querySelector('.nic-view--open')
 
     if (viewToClose && viewToClose.id !== viewId) {
-      if (viewToClose) {
+      const viewToClosePosition = viewToClose.getAttribute('data-nic-view-position')
+
+      requestAnimationFrame(() => {
+        viewToClose.classList.remove('nic-view--open')
+        viewToClose.classList.add(`nic-view--${viewToClosePosition}`)
+        viewToClose.addEventListener('transitionend', hideElement)
+      })
+
+      function hideElement () {
         requestAnimationFrame(() => {
-          viewToClose.classList.remove('nic-view--open')
-          viewToClose.classList.add(`nic-view--${viewPosition}`)
-          viewToClose.addEventListener('transitionend', hideElement)
+          viewToClose.classList.add(`nic-view--hide`)
+          viewToClose = null
         })
 
-        function hideElement () {
-          requestAnimationFrame(() => {
-            viewToClose.classList.add(`nic-view--hide`)
-            viewToClose = null
-          })
-
-          viewToClose.removeEventListener('transitionend', hideElement)
-        }
+        viewToClose.removeEventListener('transitionend', hideElement)
       }
     }
 
@@ -111,15 +110,28 @@ const updateView = ctx => {
           }
         })
 
+      const viewPosition = newView.getAttribute('data-nic-view-position')
       view = document.createElement('div')
       view.id = viewId
       view.classList.add(`nic-view--${viewPosition}`)
+      view.setAttribute('data-nic-view-position', viewPosition)
       const newViewClass = newView.className.split(' ')
 
       newViewClass
         .map(className => view.classList.add(className))
 
       view.innerHTML = newView.innerHTML
+
+      const goBackButton = view.querySelector('.nic-js-view__go-back')
+
+      if (goBackButton) {
+        goBackButton.addEventListener('click', event => {
+          event.preventDefault()
+          console.log('Going back to history')
+          history.back()
+        })
+      }
+
       document.body.appendChild(view)
     }
 
@@ -127,6 +139,7 @@ const updateView = ctx => {
 
     function showView () {
       requestAnimationFrame(() => {
+        const viewPosition = view.getAttribute('data-nic-view-position')
         setTimeout(() => {
           requestAnimationFrame(() => {
             view.classList.add('nic-view--open')

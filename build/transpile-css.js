@@ -2,6 +2,7 @@ const fs = require('fs')
 const mkdirp = require('mkdirp')
 const postcss = require('postcss')
 const cssnext = require('postcss-cssnext')
+const atImport = require('postcss-import')
 
 const processor = postcss([
   cssnext({
@@ -15,11 +16,12 @@ const processor = postcss([
       colorHexAlpha: false,
       applyRule: false
     }
-  })
+  }),
+  atImport()
 ])
 
 const appShellEntries = [
-  'app.css'
+  'app.css',
 ]
 
 const BASE_PATH = 'src/client/styles/'
@@ -34,7 +36,7 @@ const processCss = entry => {
     fs.readFile(BASE_PATH + entry, (err, css) => {
       if (err) return reject(err)
 
-      processor.process(css, { in: BASE_PATH + entry, out: `dist/client/styles/${entry}` })
+      processor.process(css, { from: BASE_PATH + entry, to: `dist/client/styles/${entry}` })
         .then(resolve)
         .catch(reject)
     })

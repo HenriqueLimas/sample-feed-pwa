@@ -47,6 +47,7 @@
     "parallelshell": "^3.0.1",
     "postcss": "^6.0.2",
     "postcss-cssnext": "^2.11.0",
+    "postcss-import": "^11.1.0",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.2.0",
