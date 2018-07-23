@@ -14,7 +14,7 @@ const Article = (ctx) => `
       </div>
     </div>
     <div class="nic-article__image-container">
-      <a class="nic-article__image nic-js-article__image" data-nic-view-position="right" href="${ctx.article.url || ''}"></a>
+      <a class="nic-article__image nic-js-article__image" href="${ctx.article.url || ''}"></a>
     </div>
   </article>
 `

@@ -6,10 +6,10 @@ const Head = ctx => `
   <meta name="author" content="Henrique Limas">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0">
 
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
   <title>${ctx.title}</title>
 
-  <link rel="preload" href="/static/images/logo.png" as="image">
-  <link rel="preload" href="/static/images/logo-white.png" as="image">
   ${
     ctx.scripts.map(path => `
       <link rel="preload" href="/static/scripts/${path}" as="script">

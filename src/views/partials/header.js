@@ -19,7 +19,7 @@ ${Head(ctx)}
       `
     }
     <a class="nic-logo" href="/">
-      <img src="/static/images/logo.png" alt="News in the city logo">
+      NewsInCity
     </a>
 
     ${ctx.user ?

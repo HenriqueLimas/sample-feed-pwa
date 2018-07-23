@@ -6,6 +6,11 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: Georgia,Cambria,"Times New Roman", Times, serif;
+  line-height: var(--line-height--normal);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-style: italic;
 }
 
 * {
@@ -44,6 +49,15 @@ body.nic-spinner--loading:before {
   background-color: var(--primary-color);
   height: var(--height--header);
   border-bottom: 1px solid var(--border-color);
+}
+
+.nic-logo {
+  color: var(--color--black);
+  font-weight: 900;
+  font-size: 32px;
+  font-family: 'Playfair Display script=all rev=1', serif;
+  font-style: normal;
+  text-decoration: none;
 }
 
 .nic-login {
@@ -163,6 +177,15 @@ body.nic-spinner--loading:before {
   height: 84px;
   padding: 15px;
   background-color: var(--secondary-color);
+}
+
+.nic-footer-logo {
+  color: var(--primary-color);
+  font-weight: 900;
+  font-size: 32px;
+  font-family: 'Playfair Display script=all rev=1', serif;
+  font-style: normal;
+  text-decoration: none;
 }
 
 @media (max-width: 520px) {
