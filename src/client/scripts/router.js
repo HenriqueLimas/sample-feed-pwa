@@ -10,7 +10,7 @@ const MaybeAnchor = MaybeCondition(ctx => ctx.clickedAnchor)
 const showSpinner = ctx => {
   return new Promise(resolve => {
     ctx.spinnerTimeout = setTimeout(() => {
-      ctx.spinner.classList.add('nic-spinner--loading')
+      ctx.spinner.classList.add('spinner--loading')
     }, 250)
 
     resolve(ctx)
@@ -21,7 +21,7 @@ const hideSpinner = ctx => {
   return new Promise(resolve => {
     clearTimeout(ctx.spinnerTimeout)
     requestAnimationFrame(() => {
-      ctx.spinner.classList.remove('nic-spinner--loading')
+      ctx.spinner.classList.remove('spinner--loading')
       resolve(ctx)
     })
   })
@@ -60,20 +60,20 @@ const loadView = ctx => {
 const updateView = ctx => {
   return new Promise(resolve => {
     const viewId = getViewIdFromLocation(ctx.location)
-    let viewToClose = document.querySelector('.nic-view--open')
+    let viewToClose = document.querySelector('.view--open')
 
     if (viewToClose && viewToClose.id !== viewId) {
-      const viewToClosePosition = viewToClose.getAttribute('data-nic-view-position')
+      const viewToClosePosition = viewToClose.getAttribute('data-view-position')
 
       requestAnimationFrame(() => {
-        viewToClose.classList.remove('nic-view--open')
-        viewToClose.classList.add(`nic-view--${viewToClosePosition}`)
+        viewToClose.classList.remove('view--open')
+        viewToClose.classList.add(`view--${viewToClosePosition}`)
         viewToClose.addEventListener('transitionend', hideElement)
       })
 
       function hideElement () {
         requestAnimationFrame(() => {
-          viewToClose.classList.add(`nic-view--hide`)
+          viewToClose.classList.add(`view--hide`)
           viewToClose = null
         })
 
@@ -82,7 +82,7 @@ const updateView = ctx => {
     }
 
     const viewExists = document.getElementById(viewId)
-    const newView = ctx.newView.querySelector('.nic-view')
+    const newView = ctx.newView.querySelector('.view')
     let isLoadingStyles = false
     let view
 
@@ -93,7 +93,7 @@ const updateView = ctx => {
       const currentStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
         .map(link => link.getAttribute('href'))
 
-      const stylesToAdd = newStyles
+      newStyles
         .filter(link => currentStyles.indexOf(link.getAttribute('href')) === -1)
         .map(link => {
           isLoadingStyles = true
@@ -110,11 +110,11 @@ const updateView = ctx => {
           }
         })
 
-      const viewPosition = newView.getAttribute('data-nic-view-position')
+      const viewPosition = newView.getAttribute('data-view-position')
       view = document.createElement('div')
       view.id = viewId
-      view.classList.add(`nic-view--${viewPosition}`)
-      view.setAttribute('data-nic-view-position', viewPosition)
+      view.classList.add(`view--${viewPosition}`)
+      view.setAttribute('data-view-position', viewPosition)
       const newViewClass = newView.className.split(' ')
 
       newViewClass
@@ -122,12 +122,11 @@ const updateView = ctx => {
 
       view.innerHTML = newView.innerHTML
 
-      const goBackButton = view.querySelector('.nic-js-view__go-back')
+      const goBackButton = view.querySelector('.js-view__go-back')
 
       if (goBackButton) {
         goBackButton.addEventListener('click', event => {
           event.preventDefault()
-          console.log('Going back to history')
           history.back()
         })
       }
@@ -139,12 +138,12 @@ const updateView = ctx => {
 
     function showView () {
       requestAnimationFrame(() => {
-        const viewPosition = view.getAttribute('data-nic-view-position')
+        const viewPosition = view.getAttribute('data-view-position')
         setTimeout(() => {
           requestAnimationFrame(() => {
-            view.classList.add('nic-view--open')
-            view.classList.remove('nic-view--hide')
-            view.classList.remove(`nic-view--${viewPosition}`)
+            view.classList.add('view--open')
+            view.classList.remove('view--hide')
+            view.classList.remove(`view--${viewPosition}`)
             resolve(ctx)
           })
         }, 100)
@@ -159,11 +158,11 @@ const updateView = ctx => {
 }
 
 const hideView = ctx => {
-  if (ctx.container.classList.contains('nic-hide-area')) {
+  if (ctx.container.classList.contains('hide-area')) {
     return ctx
   }
 
-  ctx.container.classList.add('nic-hide-area')
+  ctx.container.classList.add('hide-area')
   return ctx
 }
 

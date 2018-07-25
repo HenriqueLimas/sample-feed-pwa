@@ -3,7 +3,7 @@ import { loadArticleImages } from './load-images.js'
 import Article from '../../views/components/article'
 
 const articlesInjected = (window.nic && window.nic.articles) || []
-const container = query('.nic-js-articles', document)
+const container = query('.js-articlesList', document)
 
 const updateArticles = (container, articles) => {
   const newContainer = document.createElement('div')

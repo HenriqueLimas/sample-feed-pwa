@@ -18,7 +18,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  max-width: 1000px;
   margin: 0 auto !important;
 }
 
@@ -29,7 +28,7 @@ body:before {
   will-change: opacity;
 }
 
-body.nic-spinner--loading:before {
+body.spinner--loading:before {
   position: fixed;
   content: " ";
   height: 100%;
@@ -41,17 +40,39 @@ body.nic-spinner--loading:before {
   z-index: 10;
 }
 
-.nic-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
+.header {
+  position: absolute;
+  top: 0;
+  display: block;
+
   background-color: var(--primary-color);
-  height: var(--height--header);
+  height: var(--header-height);
+  width: 100%;
+  z-index: var(--zindex--5);
   border-bottom: 1px solid var(--border-color);
 }
 
-.nic-logo {
+.header--spacer {
+  position: relative;
+  height: var(--header-height);
+  z-index: var(--zindex--1);
+}
+
+.header-inner {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  max-width: var(--header-max-width);
+  height: var(--header-height);
+
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.logo {
   color: var(--color--black);
   font-weight: 900;
   font-size: 32px;
@@ -60,118 +81,29 @@ body.nic-spinner--loading:before {
   text-decoration: none;
 }
 
-.nic-login {
+.login {
   color: var(--primary-font-color);
   text-decoration: none;
 }
 
-.nic-main-headline {
-  position: relative;
-  height: 45%;
-  background-color: var(--light-gray);
-  margin: 0;
-  padding: 0;
-}
-
-.nic-main-headline--app-shell {
-  opacity: 0.7;
-}
-
-.nic-main-headline__image {
-  display: block;
-  background-position: 50% 50%;
-  background-origin: border-box;
-  background-size: cover;
-  background-color: var(--light-gray);
-  height: 100%;
-}
-
-.nic-main-headline__details {
-  position: absolute;
-  height: 48%;
-  width: 100%;
-  bottom: 0;
-  background-color: var(--light-gray-transparent);
-  padding: 15px;
-  color: var(--secondary-font-color);
-  letter-spacing: 1px;
-}
-
-.nic-title {
+.title {
   margin: 0;
   font-weight: lighter;
 }
 
-.nic-subtitle {
+.subtitle {
   font-weight: lighter;
 }
 
-.nic-main-headline__subtitle {
-  margin-top: 15px;
-  margin-bottom: 0;
-}
-
-.nic-main-headline__actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 42px;
-  margin-top: 10px;
-  width: 100px;
-}
-
-.nic-action {
+.action {
   text-decoration: none;
 }
 
-.nic-articles {
-  padding: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.nic-card {
+.card {
   border: 1px solid var(--border-color);
 }
 
-.nic-article {
-  display: flex;
-  width: 48%;
-  height: 230px;
-  margin-top: 20px;
-}
-
-.nic-article__details {
-  width: 60%;
-  height: 100%;
-  padding: 15px
-}
-
-.nic-article__title {
-  margin: 0;
-}
-
-.nic-article__subtitle {
-  color: var(--light-gray);
-}
-
-.nic-article__image-container {
-  width: 40%;
-  height: 100%;
-  background-color: var(--light-gray);
-}
-
-.nic-article__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: var(--light-gray);
-  background-position: 50% 50%;
-  background-size: cover;
-}
-
-.nic-footer {
+.footer {
   display: flex;
   align-items: center;
   height: 84px;
@@ -179,7 +111,7 @@ body.nic-spinner--loading:before {
   background-color: var(--secondary-color);
 }
 
-.nic-footer-logo {
+.footer-logo {
   color: var(--primary-color);
   font-weight: 900;
   font-size: 32px;
@@ -188,30 +120,7 @@ body.nic-spinner--loading:before {
   text-decoration: none;
 }
 
-@media (max-width: 520px) {
-  .nic-article {
-    width: 100%;
-  }
-}
-
-@media (max-width: 800px) {
-  .nic-article {
-    flex-direction: column;
-    flex-flow: column-reverse
-  }
-
-  .nic-article__details {
-    height: 60%;
-    width: 100%;
-  }
-
-  .nic-article__image-container {
-    height: 40%;
-    width: 100%;
-  }
-}
-
-.nic-view {
+.view {
   position: fixed;
   top: 0;
   left: 0;
@@ -221,18 +130,18 @@ body.nic-spinner--loading:before {
   will-change: transform, opacity;
 }
 
-.nic-view--hide {
+.view--hide {
   opacity: 0;
 }
 
-.nic-view--bottom {
+.view--bottom {
   transform: translateY(var(--view-position));
 }
 
-.nic-view--right {
+.view--right {
   transform: translateX(var(--view-position));
 }
 
-.nic-view--left {
+.view--left {
   transform: translateX(-var(--view-position));
 }

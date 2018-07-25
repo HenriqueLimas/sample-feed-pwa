@@ -1,5 +1,7 @@
+import Head from './partials/head.js'
 import Header from './partials/header.js'
 import Footer from './partials/footer.js'
+import Scripts from './partials/scripts.js'
 
 import Like from './components/actions/like'
 import Bookmark from './components/actions/bookmark'
@@ -11,33 +13,43 @@ const Home = (ctx) => {
   const articles = isAppShell ? [{}, {}, {}, {}] : ctx.articles
 
   return `
-    ${Header({ title: 'NewsInCity', scripts: ctx.scripts })}
+    ${Head({ title: 'NewsInCity', scripts: ctx.scripts, styles: ctx.styles })}
 
-    <section id="home" class="nic-main-headline nic-js-main-headline" data-image="${headline.image}">
-      ${ headline ? `
-        <a class="nic-main-headline__image" href="${headline.url}"></a>
-        <div class="nic-main-headline__details">
-          <h2 class="nic-title nic-main-headline__title">${headline.title}</h2>
-          <h3 class="nic-subtitle nic-main-headline__subtitle">${headline.subtitle}</h3>
-          <div class="nic-main-headline__actions nic-actions">
-            ${Like()}
-            ${Bookmark()}
-            ${Share()}
-          </div>
+    <div class="main-site">
+      ${Header(ctx)}
+
+      <div id="home" class="homeContainer js-viewContainer">
+        <div class="js-home-headline">
+          <section class="home-headline" data-image="${headline.image}">
+            ${ headline ? `
+              <a class="home-headline__image" href="${headline.url}"></a>
+              <div class="home-headline__details">
+                <h2 class="title home-headline__title">${headline.title}</h2>
+                <h3 class="subtitle home-headline__subtitle">${headline.subtitle}</h3>
+                <div class="home-headline__actions actions">
+                  ${Like()}
+                  ${Bookmark()}
+                  ${Share()}
+                </div>
+              </div>
+              ` : ''
+            }
+          </section>
         </div>
-        ` : ''
-      }
-    </section>
 
-    <div class="nic-articles nic-js-articles">
+        <div class="articleList js-articlesList">
+        </div>
+      </div>
+
+      <script>
+        window.nic = window.nic || {}
+        window.nic.articles = ${JSON.stringify(articles)}
+      </script>
+
+      ${Footer(ctx)}
     </div>
 
-    <script>
-      window.nic = window.nic || {}
-      window.nic.articles = ${JSON.stringify(articles)}
-    </script>
-
-    ${Footer({ title: 'Home', scripts: ctx.scripts })}
+    ${Scripts({ scripts: ctx.scripts })}
   `
 }
 

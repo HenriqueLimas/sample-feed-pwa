@@ -28,6 +28,7 @@ const BASE_PATH = 'src/client/styles/'
 
 const styles = [
   'login.css',
+  'home.css',
   'article.css',
 ]
 

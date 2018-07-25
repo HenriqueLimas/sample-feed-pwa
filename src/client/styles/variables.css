@@ -9,12 +9,20 @@
   --light-gray-transparent: rgba(66, 66, 66, 0.5);
 
   --view-position: 140vh;
-  --height--header: 54px;
+  --header-height: 54px;
   --container-width: calc(100% - 40px);
-  --container-max-width: 650px;
+  --content-max-width: 750px;
+  --container-max-width: 1032px;
+  --header-max-width: 1000px;
 
   --font-size--small: .75rem;
   --font-color--light: #666;
   --line-height--small: .875rem;
   --line-height--normal: 1.47rem;
+
+  --zindex--1: 100;
+  --zindex--2: 200;
+  --zindex--3: 300;
+  --zindex--4: 400;
+  --zindex--5: 500;
 }
