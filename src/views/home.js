@@ -3,8 +3,9 @@ import Header from './partials/header.js'
 import Footer from './partials/footer.js'
 import Scripts from './partials/scripts.js'
 
-import Like from './components/actions/like'
+import Article from './components/article.js';
 import Bookmark from './components/actions/bookmark'
+import Like from './components/actions/like'
 import Share from './components/actions/share'
 
 const Home = (ctx) => {
@@ -18,7 +19,7 @@ const Home = (ctx) => {
     <div class="main-site">
       ${Header(ctx)}
 
-      <div id="home" class="homeContainer js-viewContainer">
+      <div id="home" class="homeContainer js-viewContainer js-view--open">
         <div class="js-home-headline">
           <section class="home-headline" data-image="${headline.image}">
             ${ headline ? `
@@ -37,14 +38,10 @@ const Home = (ctx) => {
           </section>
         </div>
 
-        <div class="articleList js-articlesList">
+        <div class="articleList js-articleList">
+          ${articles.map(article => Article({ article }))}
         </div>
       </div>
-
-      <script>
-        window.nic = window.nic || {}
-        window.nic.articles = ${JSON.stringify(articles)}
-      </script>
 
       ${Footer(ctx)}
     </div>

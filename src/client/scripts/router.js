@@ -31,14 +31,6 @@ const getViewIdFromLocation = location => location.pathname.replace('/', '') || 
 
 const loadView = ctx => {
   return new Promise((resolve, reject) => {
-    const viewId = getViewIdFromLocation(ctx.location)
-    const viewExists = viewId && document.getElementById(viewId)
-
-    if (viewExists) {
-      ctx.newView = viewExists.parentNode
-      return resolve(ctx)
-    }
-
     const path = ctx.location.pathname
     const request = new XMLHttpRequest()
     request.responseType = 'document'
@@ -60,100 +52,58 @@ const loadView = ctx => {
 const updateView = ctx => {
   return new Promise(resolve => {
     const viewId = getViewIdFromLocation(ctx.location)
-    let viewToClose = document.querySelector('.view--open')
+    let viewToClose = document.querySelector('.js-viewContainer')
 
-    if (viewToClose && viewToClose.id !== viewId) {
-      const viewToClosePosition = viewToClose.getAttribute('data-view-position')
+    const newViewContainer = ctx.newView.querySelector('.js-viewContainer')
 
-      requestAnimationFrame(() => {
-        viewToClose.classList.remove('view--open')
-        viewToClose.classList.add(`view--${viewToClosePosition}`)
-        viewToClose.addEventListener('transitionend', hideElement)
-      })
+    if (!newViewContainer) return resolve(ctx)
 
-      function hideElement () {
-        requestAnimationFrame(() => {
-          viewToClose.classList.add(`view--hide`)
-          viewToClose = null
-        })
+    const newStyles = Array.from(ctx.newView.querySelectorAll('link[rel="stylesheet"]'))
+    const currentStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+      .map(link => link.getAttribute('href'))
 
-        viewToClose.removeEventListener('transitionend', hideElement)
-      }
-    }
+    const newScripts = Array.from(ctx.newView.querySelectorAll('script'))
+    const currentScripts = Array.from(document.querySelectorAll('script'))
+      .map(script => script.getAttribute('src'))
 
-    const viewExists = document.getElementById(viewId)
-    const newView = ctx.newView.querySelector('.view')
-    let isLoadingStyles = false
-    let view
+    newScripts
+      .filter(script => !~currentScripts.indexOf(script.getAttribute('src')))
+      .map(script => document.body.appendChild(script))
 
-    if (!newView || viewId === 'home') return resolve(ctx)
-
-    if (!viewExists) {
-      const newStyles = Array.from(ctx.newView.querySelectorAll('link[rel="stylesheet"]'))
-      const currentStyles = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-        .map(link => link.getAttribute('href'))
-
+    Promise.all(
       newStyles
-        .filter(link => currentStyles.indexOf(link.getAttribute('href')) === -1)
+        .filter(link => !~currentStyles.indexOf(link.getAttribute('href')))
         .map(link => {
-          isLoadingStyles = true
           const linkToAdd = link.cloneNode(true)
           document.head.appendChild(linkToAdd)
 
-          linkToAdd.addEventListener('load', loadView)
+          return new Promise(resolve => {
+            const handleLoadEvent = function() {
+              resolve(handleLoadEvent);
+            }
 
-          function loadView () {
-            isLoadingStyles = false
-            showView()
-
-            linkToAdd.removeEventListener('load', loadView)
-          }
+            linkToAdd.addEventListener('load', handleLoadEvent)
+          }).then(function(handlerToRemove) {
+            linkToAdd.removeEventListener('load', handlerToRemove)
+          })
         })
-
-      const viewPosition = newView.getAttribute('data-view-position')
-      view = document.createElement('div')
-      view.id = viewId
-      view.classList.add(`view--${viewPosition}`)
-      view.setAttribute('data-view-position', viewPosition)
-      const newViewClass = newView.className.split(' ')
-
-      newViewClass
-        .map(className => view.classList.add(className))
-
-      view.innerHTML = newView.innerHTML
-
-      const goBackButton = view.querySelector('.js-view__go-back')
-
-      if (goBackButton) {
-        goBackButton.addEventListener('click', event => {
-          event.preventDefault()
-          history.back()
-        })
-      }
-
-      document.body.appendChild(view)
-    }
-
-    view = view || viewExists
+    ).then(function (links) {
+      showView()
+    })
 
     function showView () {
       requestAnimationFrame(() => {
-        const viewPosition = view.getAttribute('data-view-position')
         setTimeout(() => {
           requestAnimationFrame(() => {
-            view.classList.add('view--open')
-            view.classList.remove('view--hide')
-            view.classList.remove(`view--${viewPosition}`)
+            newViewContainer.id = viewId
+
+            viewToClose.parentElement.replaceChild(newViewContainer, viewToClose)
+
             resolve(ctx)
           })
         }, 100)
       })
     }
-
-    if (!isLoadingStyles) {
-      showView()
-    }
-
   })
 }
 

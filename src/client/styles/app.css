@@ -132,6 +132,7 @@ body.spinner--loading:before {
 
 .view--hide {
   opacity: 0;
+  transform: translateY((var(--view-position)));
 }
 
 .view--bottom {
