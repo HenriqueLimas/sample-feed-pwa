@@ -12,7 +12,7 @@ module.exports = function home (req, res) {
   const { l:location } = req.cookies
 
   Article.getFirstPage({ location })
-    .map(addScripts(['app.js']))
+    .map(addScripts(['app.js', 'home.js']))
     .map(addStyles(['home.css']))
     .chain(render(Home))
     .fork(ServerError(res), ServerSuccess(res))

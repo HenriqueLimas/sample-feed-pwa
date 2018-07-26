@@ -79,6 +79,7 @@
 }
 
 .articleItem__image-container {
+  position: relative;
   width: 40%;
   height: 100%;
   background-color: var(--light-gray);
@@ -91,6 +92,11 @@
   background-color: var(--light-gray);
   background-position: 50% 50%;
   background-size: cover;
+}
+
+.articleItem__image--noscript {
+  top: 0;
+  position: absolute;
 }
 
 @media (max-width: 520px) {
