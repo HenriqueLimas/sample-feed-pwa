@@ -23,7 +23,7 @@ const Home = (ctx) => {
         <div class="js-home-headline">
           <section class="home-headline" data-image="${headline.image}">
             ${ headline ? `
-              <a class="home-headline__image" href="${headline.url}"></a>
+              <a class="home-headline__image" href="${headline.url}" aria-label="Go to article ${headline.title}"></a>
               <div class="home-headline__details">
                 <h2 class="title home-headline__title">${headline.title}</h2>
                 <h3 class="subtitle home-headline__subtitle">${headline.subtitle}</h3>
@@ -38,9 +38,15 @@ const Home = (ctx) => {
           </section>
         </div>
 
-        <div class="articleList js-articleList">
-          ${articles.map(article => Article({ article }))}
-        </div>
+        <article-list class="articleList">
+          <noscript>
+            ${articles.map(article => Article({ article }))}
+          </noscript>
+        </article-list>
+
+        <script id="articleList">
+            window.__articles = ${JSON.stringify(articles)}
+        </script>
       </div>
 
       ${Footer(ctx)}

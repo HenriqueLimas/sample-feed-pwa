@@ -1,6 +1,3 @@
-import { query } from './utils/dom'
-import { loadArticleImages } from './load-images.js'
+import initArticleList from './components/article-list.js'
 
-const container = query('.js-articleList', document)
-
-loadArticleImages(container)
+initArticleList(window)

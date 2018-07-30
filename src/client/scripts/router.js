@@ -68,6 +68,18 @@ const updateView = ctx => {
 
     newScripts
       .filter(script => !~currentScripts.indexOf(script.getAttribute('src')))
+      .map(script => {
+        const newScript = document.createElement('script')
+
+        if (script.src) {
+          newScript.src = script.src
+          newScript.async = true;
+        } else {
+          newScript.innerText = script.innerText
+        }
+
+        return newScript
+      })
       .map(script => document.body.appendChild(script))
 
     Promise.all(

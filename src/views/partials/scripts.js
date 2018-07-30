@@ -1,6 +1,6 @@
 const Scripts = ctx => `
   ${ctx.scripts.map(path => (
-    `<script async src="/static/scripts/${path}"></script>`
+    `<script defer src="/static/scripts/${path}"></script>`
   )).join('\n')}
 
 </body>

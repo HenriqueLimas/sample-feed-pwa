@@ -7,12 +7,17 @@ const rollup = require('rollup')
 const babel = require('rollup-plugin-babel')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const cpFile = require('cp-file')
 
 let cache
 
 const entries = [
   'client/scripts/app.js',
   'client/scripts/home.js'
+]
+
+const thirdParties = [
+  'client/scripts/third-parties/custom-elements.js',
 ]
 
 entries.forEach(entry => {
@@ -35,3 +40,6 @@ entries.forEach(entry => {
   })
 })
 
+thirdParties.forEach(entry => {
+  cpFile(`src/${entry}`, `dist/${entry}`)
+})

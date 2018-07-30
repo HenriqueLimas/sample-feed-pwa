@@ -1,7 +1,9 @@
+import initWebcomponents from './webcomponents.js'
 import { loadCurrentPositionIntoCookies } from './geolocation.js'
 import initRouter from './router.js'
 
-initRouter();
+initWebcomponents(window)
+initRouter()
 
 loadCurrentPositionIntoCookies(window)(navigator.geolocation)
   .catch(console.error)
