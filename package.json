@@ -41,24 +41,25 @@
     "babel": "^6.23.0",
     "babel-preset-babili": "^0.1.4",
     "babel-preset-es2015-rollup": "^3.0.0",
-    "copy": "^0.3.0",
+    "copy": "^0.3.2",
+    "cp-file": "^6.0.0",
     "mkdirp": "^0.5.1",
     "npm-watch": "^0.1.9",
-    "parallelshell": "^3.0.1",
-    "postcss": "^6.0.2",
+    "parallelshell": "^3.0.2",
+    "postcss": "^6.0.23",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^11.1.0",
-    "rollup": "^0.43.0",
+    "rollup": "^0.43.1",
     "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.2.0",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-commonjs": "^8.4.1",
+    "rollup-plugin-node-resolve": "^3.3.0"
   },
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "data.either": "^1.5.1",
     "data.task": "^3.1.1",
-    "express": "^4.15.3",
+    "express": "^4.16.3",
     "morphdom": "^2.3.3",
-    "request": "^2.81.0"
+    "request": "^2.87.0"
   }
 }
