@@ -1,5 +1,5 @@
 const Like = (ctx = {}) => `
-  <a href="#" class="action">
+  <a href="#" class="action" aria-label="like">
     <i class="action--like">
       <svg fill="${ctx.dark ? '#424242' : '#FFFFFF'}" opacity="0.65" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>
