@@ -93,15 +93,45 @@ body.spinner--loading:before {
 
 .title {
   margin: 0;
-  font-weight: lighter;
+  margin-bottom: 4px;
+  color: var(--primary-font-color);
+}
+
+.title__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.title__link:hover {
+  text-decoration: underline;
 }
 
 .subtitle {
   font-weight: lighter;
+  color: var(--font-color--light);
+  margin: 0;
+}
+
+.actions {
+  margin-top: 10px;
 }
 
 .action {
   text-decoration: none;
+}
+
+.divider {
+  position: relative;
+  margin: 25px auto;
+  max-width: var(--container-max-width);
+  border-bottom: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 1031px) {
+  .divider {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
 }
 
 .card {

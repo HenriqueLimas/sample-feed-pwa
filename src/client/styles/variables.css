@@ -1,7 +1,7 @@
 :root {
   --primary-color: #FFFFFF;
   --secondary-color: #333333;
-  --primary-font-color: #424242;
+  --primary-font-color: #000;
   --secondary-font-color: #FFFFFF;
   --color--black: #000;
   --border-color: #BDBDBD;
@@ -16,7 +16,7 @@
   --header-max-width: 1000px;
 
   --font-size--small: .75rem;
-  --font-color--light: #666;
+  --font-color--light: rgba(0, 0, 0, 0.66);
   --line-height--small: .875rem;
   --line-height--normal: 1.47rem;
 

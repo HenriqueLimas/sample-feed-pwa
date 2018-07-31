@@ -25,7 +25,11 @@ const Home = (ctx) => {
             ${ headline ? `
               <a class="home-headline__image" href="${headline.url}" aria-label="Go to article ${headline.title}"></a>
               <div class="home-headline__details">
-                <h2 class="title home-headline__title">${headline.title}</h2>
+                <h2 class="title home-headline__title">
+                  <a class="title__link" href="${headline.url}" aria-label="Go to article ${headline.title}">
+                    ${headline.title}
+                  </a>
+                </h2>
                 <h3 class="subtitle home-headline__subtitle">${headline.subtitle}</h3>
                 <div class="home-headline__actions actions">
                   ${Like()}
@@ -36,6 +40,8 @@ const Home = (ctx) => {
               ` : ''
             }
           </section>
+
+          <div class="divider"></div>
         </div>
 
         <article-list class="articleList">
