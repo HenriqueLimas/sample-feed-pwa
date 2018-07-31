@@ -17,7 +17,7 @@ const ArticleDetails = ctx => {
       <main class="article-view js-viewContainer">
         <article class="article-detail">
           <header class="article-header">
-            <h1>${ctx.article.title}</h1>
+            <h1 class="title article-view__title">${ctx.article.title}</h1>
 
             <figure class="article-image image js-image" data-image="${ctx.article.image}" data-image-alt="${ctx.article.title}">
               <div class="image-responsive__container">
