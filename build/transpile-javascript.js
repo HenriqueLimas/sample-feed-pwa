@@ -35,7 +35,7 @@ entries.forEach(entry => {
       intro,
       format: 'iife',
       dest: `dist/${entry}`,
-      sourceMap: process.env !== 'production'
+      sourceMap: process.env.NODE_ENV !== 'production'
     })
   })
 })
