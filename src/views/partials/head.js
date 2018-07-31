@@ -6,8 +6,6 @@ const Head = ctx => `
   <meta name="author" content="Henrique Limas">
   <meta name="viewport" content="width=device-width,minimum-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-
   <title>${ctx.title}</title>
 
   ${
