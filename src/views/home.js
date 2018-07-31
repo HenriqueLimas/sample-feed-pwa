@@ -20,10 +20,10 @@ const Home = (ctx) => {
       ${Header(ctx)}
 
       <div id="home" class="homeContainer js-viewContainer js-view--open">
-        <div class="js-home-headline">
-          <section class="home-headline" data-image="${headline.image}">
+        <home-headline class="js-home-headline">
+          <section class="home-headline js-home-headline" data-image="${headline.image}">
             ${ headline ? `
-              <a class="home-headline__image" href="${headline.url}" aria-label="Go to article ${headline.title}"></a>
+              <a class="home-headline__image js-image__container" href="${headline.url}" aria-label="Go to article ${headline.title}"></a>
               <div class="home-headline__details">
                 <h2 class="title home-headline__title">
                   <a class="title__link" href="${headline.url}" aria-label="Go to article ${headline.title}">
@@ -42,7 +42,7 @@ const Home = (ctx) => {
           </section>
 
           <div class="divider"></div>
-        </div>
+        </home-headline>
 
         <article-list class="articleList">
           <noscript>

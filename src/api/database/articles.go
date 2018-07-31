@@ -16,7 +16,7 @@ func (article *articleRepository) FindHeadlineByLocation(origin location.Locatio
 		URL:      "posts/123456",
 		Title:    "Snowing hard this week",
 		Subtitle: "Montepelier will have a lot of snow today",
-		Image:    "https://monosnap.com/file/MPTTcBp3h8e2by9o7YB4p437Ckux8g.png",
+		Image:    "https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
 	}, nil
 }
 

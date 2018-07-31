@@ -19,7 +19,7 @@ const Article = (ctx) => `
       </div>
     </div>
     <div class="articleItem__image-container">
-      <a class="articleItem__image js-articleItem__image" href="${ctx.article.url || ''}" aria-label="Go to article ${ctx.article.title}"></a>
+      <a class="articleItem__image js-image__container" href="${ctx.article.url || ''}" aria-label="Go to article ${ctx.article.title}"></a>
       <noscript>
         <a class="articleItem__image articleItem__image--noscript" href="${ctx.article.url || ''}" style="background-image: url(${ctx.article.image});"></a>
       </noscript>
