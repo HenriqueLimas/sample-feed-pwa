@@ -15,5 +15,4 @@ const changeBackgroundImage = element => {
   })
 }
 
-export const loadArticleImages = compose(map(changeBackgroundImage), queryAll('.js-articleItem'))
-export const loadHeadlineImage = compose(map(changeBackgroundImage), queryAll('.js-home-headline'))
+export const createImageLoader = element => compose(map(changeBackgroundImage), queryAll(element))

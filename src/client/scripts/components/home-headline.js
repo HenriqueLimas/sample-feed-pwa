@@ -1,4 +1,6 @@
-import { loadHeadlineImage } from "../load-images";
+import { createImageLoader } from "../load-images";
+
+export const loadHeadlineImage = createImageLoader('.js-home-headline')
 
 export default function init(global) { 
   global.WebComponents.waitFor(() => {

@@ -1,5 +1,7 @@
 import Article from '../../../views/components/article.js'
-import { loadArticleImages } from '../load-images.js';
+import { createImageLoader } from '../load-images.js';
+
+const loadArticleImages = createImageLoader('.js-articleItem')
 
 export default function init(global) { 
   global.WebComponents.waitFor(() => {
