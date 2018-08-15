@@ -26,6 +26,7 @@ func main() {
 		authSecret        = envString("AUTH_SECRET", "Yay")
 		cassandraAddress  = envString("CASSANDRA_ADDRESS", "192.168.99.100")
 		cassandraKeyspace = envString("CASSANDRA_KEYSPACE", "news_in_city")
+		postgresAddress   = envString("POSTGRES_ADDRESS", "postgres://user@192.168.99.100/news_in_city")
 		httpAddr          = flag.String("http.addr", ":"+addr, "HTTP listen address")
 	)
 
@@ -39,8 +40,14 @@ func main() {
 		logger.Fatal(err)
 	}
 
+	postgressConnection, err := database.InitPostgres(postgresAddress)
+	defer postgressConnection.Close()
+	if err != nil {
+		logger.Fatal(err)
+	}
+
 	var (
-		articles = database.NewArticleRepository(cassandraSession)
+		articles = database.NewArticleRepository(postgressConnection)
 		users    = database.NewUserRepository(cassandraSession, logger)
 	)
 

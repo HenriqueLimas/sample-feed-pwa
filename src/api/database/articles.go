@@ -1,17 +1,18 @@
 package database
 
 import (
-	"github.com/gocql/gocql"
+	"database/sql"
 
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/articles"
 	"github.com/HenriqueLimas/sample-feed-pwa/src/api/location"
+	"github.com/lib/pq"
 )
 
-type articleRepository struct {
-	DB *gocql.Session
+type articleSqlRepository struct {
+	DB *sql.DB
 }
 
-func (article *articleRepository) FindHeadlineByLocation(origin location.Location) (*articles.Article, error) {
+func (article *articleSqlRepository) FindHeadlineByLocation(origin location.Location) (*articles.Article, error) {
 	return &articles.Article{
 		URL:      "posts/123456",
 		Title:    "Snowing hard this week",
@@ -20,58 +21,67 @@ func (article *articleRepository) FindHeadlineByLocation(origin location.Locatio
 	}, nil
 }
 
-func (article *articleRepository) LoadLatestArticlesByLocation(origin location.Location) (*articles.Articles, error) {
+func (article *articleSqlRepository) LoadLatestArticlesByLocation(origin location.Location) (*articles.Articles, error) {
 	var articlesFromDb articles.Articles
 
-	query := "SELECT article_id, title, subtitle, content, images FROM articles_by_user LIMIT 5"
-	iterable := article.DB.Query(query).Iter()
-	articleIterable := map[string]interface{}{}
+	query := "SELECT article_id, title, subtitle, images FROM articles LIMIT 5"
+	rows, err := article.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
 
-	for iterable.MapScan(articleIterable) {
-		images := articleIterable["images"].([]map[string]interface{})
+	for rows.Next() {
+		var (
+			articleID string
+			title     string
+			subtitle  string
+			images    []Image
+		)
 
-		articleID := articleIterable["article_id"].(gocql.UUID).String()
+		err = rows.Scan(&articleID, &title, &subtitle, pq.Array(&images))
+		if err != nil {
+			return nil, err
+		}
 
 		articlesFromDb = append(articlesFromDb, articles.Article{
 			ID:       articleID,
 			URL:      "posts/" + articleID,
-			Title:    articleIterable["title"].(string),
-			Subtitle: articleIterable["subtitle"].(string),
-			Image:    images[0]["url"].(string),
+			Title:    title,
+			Subtitle: subtitle,
+			Image:    images[0].Url,
 		})
 	}
 
 	return &articlesFromDb, nil
 }
 
-func (article *articleRepository) LoadArticleByID(id string) (*articles.Article, error) {
-	uuid, err := gocql.ParseUUID(id)
-	if err != nil {
+func (article *articleSqlRepository) LoadArticleByID(id string) (*articles.Article, error) {
+	query := "SELECT article_id, title, subtitle, content, images FROM articles WHERE article_id = $1 LIMIT 1"
+
+	var (
+		articleID string
+		title     string
+		subtitle  string
+		content   string
+		images    []Image
+	)
+
+	if err := article.DB.QueryRow(query, id).Scan(&articleID, &title, &subtitle, &content, pq.Array(&images)); err != nil {
 		return nil, err
 	}
-
-	query := "SELECT article_id, title, subtitle, content, images FROM articles WHERE article_id = ? LIMIT 1"
-	articleIterable := map[string]interface{}{}
-
-	if err := article.DB.Query(query, uuid).Consistency(gocql.One).MapScan(articleIterable); err != nil {
-		return nil, err
-	}
-
-	images := articleIterable["images"].([]map[string]interface{})
-	articleID := articleIterable["article_id"].(gocql.UUID).String()
 
 	return &articles.Article{
 		ID:       articleID,
-		Title:    articleIterable["title"].(string),
-		Subtitle: articleIterable["subtitle"].(string),
-		Image:    images[0]["url"].(string),
-		Content:  articleIterable["content"].(string),
+		Title:    title,
+		Subtitle: subtitle,
+		Image:    images[0].Url,
+		Content:  content,
 	}, nil
 }
 
 // NewArticleRepository create a new article Repository
-func NewArticleRepository(db *gocql.Session) articles.Repository {
-	r := &articleRepository{
+func NewArticleRepository(db *sql.DB) articles.Repository {
+	r := &articleSqlRepository{
 		DB: db,
 	}
 
