@@ -20,3 +20,11 @@ services:
       dockerfile: ./docker/modules/db/Dockerfile
     environment:
       CASSANDRA_KEYSPACE: news_in_city
+
+  postgres:
+    build:
+      context: ..
+      dockerfile: ./docker/modules/db/Postgres.Dockerfile
+    environment:
+      POSTGRES_DB: news_in_city
+      POSTGRES_USER: docker
