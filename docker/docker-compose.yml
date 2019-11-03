@@ -5,13 +5,13 @@ services:
       context: ..
       dockerfile: ./docker/modules/api/Dockerfile
     volumes:
-      - "../src/api:/go/src/github.com/HenriqueLimas/sample-feed-pwa/src/api"
+      - "../src/api:/app/src/api"
     ports:
       - "8080:8080"
     links:
       - "db:cassandra"
       - "postgres:postgres"
-    command:  ["../../docker/wait-for-it.sh", "-t", "30", "db:9041", "--", "fresh", "-c", "runner.conf", "main.go"]
+    command:  ["/app/docker/wait-for-it.sh", "-t", "30", "db:9041", "--", "fresh", "-c", "runner.conf", "main.go"]
     environment:
       CASSANDRA_ADDRESS: cassandra
       POSTGRES_ADDRESS: postgres://docker@postgres/news_in_city?sslmode=disable
