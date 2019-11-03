@@ -1,3 +1,3 @@
-const log = data => console.log(data)
+const log = data => console.log(data);
 
-export default log
+export default log;

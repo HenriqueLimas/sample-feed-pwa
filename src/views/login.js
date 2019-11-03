@@ -1,14 +1,14 @@
-import Head from './partials/head.js'
-import Scripts from './partials/scripts.js'
+import Head from "./partials/head.js";
+import Scripts from "./partials/scripts.js";
 
-import CloseAnchor from './components/close-anchor.js'
+import CloseAnchor from "./components/close-anchor.js";
 
 const Login = ctx => {
   return `
     ${Head(ctx)}
       <section class="view login-view" data-view-position="bottom">
         <div class="view__close">
-          ${CloseAnchor({ link: '/', color: '#FFFFFF' })}
+          ${CloseAnchor({ link: "/", color: "#FFFFFF" })}
         </div>
         <div class="view__title">
           <h3 class="login-view__title">Sign in to read your news</h3>
@@ -44,7 +44,7 @@ const Login = ctx => {
         </div>
       </section>
     ${Scripts(ctx)}
-  `
-}
+  `;
+};
 
-export default Login
+export default Login;

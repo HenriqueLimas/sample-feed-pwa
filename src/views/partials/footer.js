@@ -1,4 +1,4 @@
-import Scripts from './scripts.js'
+import Scripts from "./scripts.js";
 
 const Footer = ctx => `
   <footer class="footer">
@@ -7,6 +7,6 @@ const Footer = ctx => `
     </a>
   </footer>
 
-`
+`;
 
-export default Footer
+export default Footer;

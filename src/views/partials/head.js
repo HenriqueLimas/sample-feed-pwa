@@ -8,21 +8,31 @@ const Head = ctx => `
 
   <title>${ctx.title}</title>
 
-  ${
-    ctx.scripts.map(path => `
+  ${ctx.scripts
+    .map(
+      path => `
       <link rel="preload" href="/static/scripts/${path}" as="script">
-    `).join('\n')
-  }
+    `
+    )
+    .join("\n")}
 
   <link rel="stylesheet" href="/static/styles/app-shell.css">
 
-  ${ ctx.styles ? ctx.styles.map(path => `
+  ${
+    ctx.styles
+      ? ctx.styles
+          .map(
+            path => `
     <link rel="stylesheet" href="/static/styles/${path}">
-  `).join('\n') : '' }
+  `
+          )
+          .join("\n")
+      : ""
+  }
 
 </head>
 
 <body>
-`
+`;
 
-export default Head
+export default Head;
