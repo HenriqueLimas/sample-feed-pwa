@@ -60,6 +60,7 @@
     "data.task": "^3.1.1",
     "express": "^4.16.3",
     "morphdom": "^2.3.3",
+    "osagai": "^0.3.3",
     "request": "^2.87.0"
   }
 }

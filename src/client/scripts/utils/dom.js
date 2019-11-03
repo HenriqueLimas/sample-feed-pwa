@@ -1,5 +1,5 @@
 import morphdom from 'morphdom'
-import { curry, compose } from './fp.js'
+import { curry } from './fp.js'
 
 const elementsToArray = elements => Array.from(elements)
 
