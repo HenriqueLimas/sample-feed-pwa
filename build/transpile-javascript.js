@@ -22,7 +22,7 @@ const thirdParties = [
 
 entries.forEach(entry => {
   rollup.rollup({
-    entry: `src/${entry}`,
+    input: `src/${entry}`,
     cache,
     plugins: [
       resolve({ jsnext: true }),
@@ -30,12 +30,12 @@ entries.forEach(entry => {
       babel()
     ]
   }).then(bundle => {
-    cache = bundle
+    cache = bundle.cache
     bundle.write({
       intro,
       format: 'iife',
-      dest: `dist/${entry}`,
-      sourceMap: process.env.NODE_ENV !== 'production'
+      file: `dist/${entry}`,
+      sourcemap: process.env.NODE_ENV !== 'production'
     })
   })
 })

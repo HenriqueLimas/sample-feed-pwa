@@ -38,9 +38,8 @@
     "start": "node dist/server/index.js"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-preset-babili": "^0.1.4",
-    "babel-preset-es2015-rollup": "^3.0.0",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
     "copy": "^0.3.2",
     "cp-file": "^6.0.0",
     "mkdirp": "^0.5.1",
@@ -49,10 +48,10 @@
     "postcss": "^6.0.23",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^11.1.0",
-    "rollup": "^0.43.1",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.4.1",
-    "rollup-plugin-node-resolve": "^3.3.0"
+    "rollup": "^1.26.3",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.1.3",

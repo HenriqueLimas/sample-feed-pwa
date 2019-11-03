@@ -8,13 +8,13 @@ const entries = [
 
 entries.forEach(entry => {
   rollup.rollup({
-    entry: `src/${entry}`,
+    input: `src/${entry}`,
     cache
   }).then(bundle => {
-    cache = bundle
+    cache = bundle.cache
     bundle.write({
       format: 'cjs',
-      dest: `dist/${entry}`
+      file: `dist/${entry}`
     })
   })
 })
