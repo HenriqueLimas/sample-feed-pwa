@@ -51,7 +51,7 @@
     "mkdirp": "^0.5.1",
     "npm-watch": "^0.1.9",
     "parallelshell": "^3.0.2",
-    "postcss": "^6.0.23",
+    "postcss": "^7.0.36",
     "postcss-cssnext": "^2.11.0",
     "postcss-import": "^11.1.0",
     "precise-commits": "^1.0.2",
