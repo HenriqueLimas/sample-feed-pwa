@@ -1,4 +1,3 @@
-version: '3'
 services:
   api:
     build:
@@ -11,7 +10,7 @@ services:
     links:
       - "db:cassandra"
       - "postgres:postgres"
-    command:  ["/app/docker/wait-for-it.sh", "-t", "30", "db:9041", "--", "fresh", "-c", "runner.conf", "main.go"]
+    command:  ["/app/docker/wait-for-it.sh", "-t", "120", "db:9042", "--", "fresh", "-c", "runner.conf", "main.go"]
     environment:
       CASSANDRA_ADDRESS: cassandra
       POSTGRES_ADDRESS: postgres://docker@postgres/news_in_city?sslmode=disable

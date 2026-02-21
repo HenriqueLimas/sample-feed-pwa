@@ -1,1 +1,1 @@
-cd docker && docker-compose up
+DOCKER_CONFIG_DIR="${DOCKER_CONFIG:-/tmp/sample-feed-pwa-docker-config}" && mkdir -p "$DOCKER_CONFIG_DIR" && cd docker && DOCKER_CONFIG="$DOCKER_CONFIG_DIR" docker compose up

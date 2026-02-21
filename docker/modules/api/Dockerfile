@@ -2,6 +2,6 @@ FROM golang:1.25
 
 WORKDIR /app/src/api
 COPY . /app
-RUN go get github.com/pilu/fresh
+RUN GOBIN=/usr/local/bin go install github.com/pilu/fresh@latest
 
 CMD go run
