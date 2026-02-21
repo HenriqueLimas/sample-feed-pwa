@@ -1,5 +1,4 @@
 const fs = require('fs')
-const mkdirp = require('mkdirp')
 const postcss = require('postcss')
 const cssnext = require('postcss-cssnext')
 const atImport = require('postcss-import')
@@ -53,17 +52,15 @@ const writeFile = fileName => results => {
   if (map) fs.writeFile(`dist/client/styles/${fileName}.map`, map, logError)
 }
 
-mkdirp('dist/client/styles', err => {
-  if (err) return console.error(err)
+fs.mkdirSync('dist/client/styles', { recursive: true })
 
-  Promise.all(
-    appShellEntries.map(processCss)
-  ).then(writeFile('app-shell.css'))
+Promise.all(
+  appShellEntries.map(processCss)
+).then(writeFile('app-shell.css'))
 
-  styles
-    .map(entry => {
-      return processCss(entry)
-        .then(result => writeFile(entry)([result]))
-    })
-})
+styles
+  .map(entry => {
+    return processCss(entry)
+      .then(result => writeFile(entry)([result]))
+  })
 
