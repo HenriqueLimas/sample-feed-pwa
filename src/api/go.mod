@@ -1,6 +1,6 @@
 module github.com/HenriqueLimas/sample-feed-pwa/src/api
 
-go 1.12
+go 1.25
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -8,4 +8,10 @@ require (
 	github.com/gorilla/mux v1.7.3
 	github.com/lib/pq v1.2.0
 	golang.org/x/crypto v0.0.0-20191029031824-8986dd9e96cf
+)
+
+require (
+	github.com/golang/snappy v0.0.0-20170215233205-553a64147049 // indirect
+	github.com/hailocab/go-hostpool v0.0.0-20160125115350-e80d13ce29ed // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
 )
