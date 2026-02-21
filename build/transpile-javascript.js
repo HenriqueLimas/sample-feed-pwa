@@ -4,10 +4,11 @@ const intro = `/**
 `
 
 const rollup = require('rollup')
-const babel = require('rollup-plugin-babel')
-const resolve = require('rollup-plugin-node-resolve')
-const commonjs = require('rollup-plugin-commonjs')
-const cpFile = require('cp-file')
+const { babel } = require('@rollup/plugin-babel')
+const { nodeResolve } = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const fs = require('node:fs')
+const path = require('node:path')
 
 let cache
 
@@ -25,9 +26,11 @@ entries.forEach(entry => {
     input: `src/${entry}`,
     cache,
     plugins: [
-      resolve({ jsnext: true }),
+      nodeResolve(),
       commonjs(),
-      babel()
+      babel({
+        babelHelpers: 'bundled'
+      })
     ]
   }).then(bundle => {
     cache = bundle.cache
@@ -41,5 +44,8 @@ entries.forEach(entry => {
 })
 
 thirdParties.forEach(entry => {
-  cpFile(`src/${entry}`, `dist/${entry}`)
+  const source = `src/${entry}`
+  const destination = `dist/${entry}`
+  fs.mkdirSync(path.dirname(destination), { recursive: true })
+  fs.copyFileSync(source, destination)
 })
